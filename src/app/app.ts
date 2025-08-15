@@ -14,7 +14,7 @@ import { FormsModule } from '@angular/forms'; // For the [(ngModel)]
 export class App {
    name: string = '';
    greetingMessage: string = '';
-     private apiUrl = 'http://localhost:8080/api/greet';
+     private apiUrl = 'https://greeter-api.onrender.com/api/greet';
   constructor(private http: HttpClient) {}
    // This function will be called when the button is clicked because of (click)="getGreeting()"
   getGreeting(): void {
