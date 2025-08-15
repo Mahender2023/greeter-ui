@@ -1,23 +1,28 @@
-name: Build and Deploy
+name: Build and Deploy to GitHub Pages
+
+# This workflow runs whenever you push a change to your 'main' branch
 on:
   push:
     branches:
-      - main # Deploys every time you push to the 'main' branch
+      - master
+
 jobs:
   build-and-deploy:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest # Use a standard virtual machine
     steps:
+      # Step 1: Check out your repository's code
       - name: Checkout 🛎️
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
-      - name: Install and Build 🔧
+      # Step 2: Build your Angular application
+      - name: Build 🔧
         run: |
           npm install
-          npm run ng build -- --base-href=/<greeter-ui>/
-          # The repo name must match exactly!
+          ng build --base-href /greeter-ui/
 
+      # Step 3: Deploy the correct folder to the 'gh-pages' branch
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          branch: gh-pages # The branch the action should deploy to.
-          folder: dist/greeter-ui # The folder the action should deploy.
+          branch: gh-pages # The branch to deploy to
+          folder: dist/greeter-ui # The folder to deploy from
